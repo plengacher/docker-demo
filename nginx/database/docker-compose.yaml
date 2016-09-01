@@ -1,0 +1,27 @@
+postgres:
+  build: .
+  dockerfile: Dockerfile-db
+  environment:
+    POSTGRES_PASSWORD: password
+    POSTGRES_USER: postgres
+
+app1:
+  build: .
+  dockerfile: Dockerfile-r
+  links: [postgres]
+
+app2:
+  build: .
+  dockerfile: Dockerfile-r
+  links: [postgres]
+app3:
+  build: .
+  dockerfile: Dockerfile-r
+  links: [postgres]
+
+nginx:
+  build: .
+  dockerfile: Dockerfile-nginx
+  ports:
+    - "8000:8000"
+  links: [app1, app2, app3]

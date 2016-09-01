@@ -1,0 +1,7 @@
+FROM postgres:9.5.3
+
+ADD data /data/
+
+RUN chmod -R 777 /data
+
+ADD sql /docker-entrypoint-initdb.d/
